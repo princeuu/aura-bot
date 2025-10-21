@@ -21,7 +21,7 @@ export default function Home() {
   if (!user) {
     // Show login form when NOT signed in
     return (
-      <main className="relative flex min-h-screen items-center justify-center bg-gradient-to-b from-gray-50 to-gray-100 dark:from-neutral-900 dark:to-neutral-950">
+      <main className="relative flex min-h-screen items-center justify-center bg-linear-to-b from-gray-50 to-gray-100 dark:from-neutral-900 dark:to-neutral-950">
         {/* soft background blobs (optional) */}
         <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
           <div className="absolute -top-20 -left-16 h-64 w-64 rounded-full bg-blue-500/10 blur-3xl" />
@@ -35,7 +35,7 @@ export default function Home() {
   }
 
   return (
-    <main className="relative flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-gray-50 to-gray-100 dark:from-neutral-900 dark:to-neutral-950 text-center space-y-6 px-4">
+    <main className="relative flex min-h-screen flex-col items-center justify-center bg-linear-to-b from-gray-50 to-gray-100 dark:from-neutral-900 dark:to-neutral-950 text-center space-y-6 px-4">
       <h1 className="text-4xl font-semibold text-gray-900 dark:text-gray-100">
         Hey, {user.displayName || user.email} 👋
       </h1>
@@ -103,7 +103,7 @@ function AuthCard() {
       <div className="text-center space-y-2 mb-6">
         <h1 className="text-3xl font-semibold text-gray-900 dark:text-gray-100">
           Welcome to{" "}
-          <span className="bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 bg-clip-text text-transparent">
+          <span className="bg-linear-to-r from-blue-500 via-purple-500 to-pink-500 bg-clip-text text-transparent">
             AuraGPT
           </span>
         </h1>

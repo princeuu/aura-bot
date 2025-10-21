@@ -1,6 +1,7 @@
 "use client";
 import { auth } from "@/app/lib/firebase-client";
-import { onAuthStateChanged } from "firebase/auth";
+import { onAuthStateChanged, type User } from "firebase/auth";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 
 type Thread = {
@@ -10,7 +11,7 @@ type Thread = {
 };
 
 export default function ThreadsPage() {
-  const [user, setUser] = useState<any>(null);
+  const [user, setUser] = useState<User | null>(null);
   const [threads, setThreads] = useState<Thread[]>([]);
   const [loading, setLoading] = useState(true);
   const [creating, setCreating] = useState(false);
@@ -25,7 +26,7 @@ export default function ThreadsPage() {
       const res = await fetch("/api/threads", {
         headers: { Authorization: `Bearer ${idToken}` },
       });
-      const data = await res.json();
+      const data: { threads?: Thread[] } = await res.json();
       setThreads(data.threads ?? []);
       setLoading(false);
     })();
@@ -43,8 +44,9 @@ export default function ThreadsPage() {
       },
       body: JSON.stringify({ title: "New Chat" }),
     });
-    const data = await res.json();
-    location.href = `/chat/${data.threadId}`;
+    const data: { threadId: string } = await res.json();
+    // client-side nav to avoid full reload
+    window.location.assign(`/chat/${data.threadId}`);
   }
 
   if (!user) {
@@ -80,7 +82,6 @@ export default function ThreadsPage() {
           </button>
         </div>
 
-        {/* Content card */}
         <div className="rounded-2xl border border-black/5 bg-white/70 p-4 shadow-sm backdrop-blur supports-backdrop-filter:bg-white/60 dark:border-white/10 dark:bg-neutral-900/60">
           {loading ? (
             <div className="grid gap-3 sm:grid-cols-2">
@@ -117,7 +118,7 @@ export default function ThreadsPage() {
                   ? new Date(t.createdAt._seconds * 1000)
                   : null;
                 return (
-                  <a
+                  <Link
                     key={t.id}
                     href={`/chat/${t.id}`}
                     className="group rounded-xl border border-black/5 bg-white/80 p-4 shadow-sm transition hover:shadow-md hover:bg-white dark:border-white/10 dark:bg-neutral-900/70 dark:hover:bg-neutral-900"
@@ -133,7 +134,7 @@ export default function ThreadsPage() {
                     <div className="mt-1 text-xs text-gray-600 dark:text-gray-400">
                       {ts ? ts.toLocaleString() : "Just now"}
                     </div>
-                  </a>
+                  </Link>
                 );
               })}
             </div>

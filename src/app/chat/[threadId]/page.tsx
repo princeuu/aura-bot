@@ -166,7 +166,7 @@ export default function ChatLayout({
     );
 
   return (
-    <main className="flex h-screen bg-gradient-to-b from-gray-50 to-gray-100 dark:from-neutral-900 dark:to-neutral-950 text-gray-900 dark:text-gray-100">
+    <main className="flex h-screen bg-linear-to-b from-gray-50 to-gray-100 dark:from-neutral-900 dark:to-neutral-950 text-gray-900 dark:text-gray-100">
       {/* 🧭 Sidebar */}
       <aside className="w-64 border-r border-black/5 dark:border-white/10 bg-white/60 dark:bg-neutral-900/60 backdrop-blur p-4 flex flex-col">
         <div className="flex items-center justify-between mb-4">
@@ -223,7 +223,7 @@ export default function ChatLayout({
                   className={`flex ${isUser ? "justify-end" : "justify-start"}`}
                 >
                   <div
-                    className={`max-w-[70%] rounded-2xl px-4 py-2 text-sm leading-relaxed shadow-sm whitespace-pre-wrap break-words ${
+                    className={`max-w-[70%] rounded-2xl px-4 py-2 text-sm leading-relaxed shadow-sm whitespace-pre-wrap wrap-break-words ${
                       isUser
                         ? "bg-blue-600 text-white rounded-br-sm"
                         : "bg-white/80 text-gray-900 rounded-bl-sm dark:bg-neutral-800/80 dark:text-gray-100"
@@ -245,7 +245,7 @@ export default function ChatLayout({
         </div>
 
         {/* Fixed input area always visible */}
-        <div className="border-t border-black/5 dark:border-white/10 p-3 flex gap-2 sticky bottom-0 bg-white/70 dark:bg-neutral-900/70 backdrop-blur supports-[backdrop-filter]:bg-white/60">
+        <div className="border-t border-black/5 dark:border-white/10 p-3 flex gap-2 sticky bottom-0 bg-white/70 dark:bg-neutral-900/70 backdrop-blur supports-backdrop-filter:bg-white/60">
           <input
             className="flex-1 rounded-lg border border-black/10 bg-white/90 px-3 py-2 text-sm outline-none placeholder:text-gray-400 focus:border-blue-400 focus:ring-2 focus:ring-blue-200 dark:border-white/10 dark:bg-neutral-900/70 dark:focus:ring-blue-900"
             value={input}

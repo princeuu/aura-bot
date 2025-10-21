@@ -19,7 +19,7 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
-      <body className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100 text-gray-900 dark:from-neutral-900 dark:to-neutral-950 dark:text-gray-100 transition-colors">
+      <body className="min-h-screen bg-linear-to-b from-gray-50 to-gray-100 text-gray-900 dark:from-neutral-900 dark:to-neutral-950 dark:text-gray-100 transition-colors">
         {/* Full-width header */}
         <header className="sticky top-0 z-30 backdrop-blur-md bg-white/70 border-b border-black/5 dark:bg-neutral-900/60 dark:border-white/10">
           <div className="px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between">
