@@ -7,13 +7,15 @@ import {
   createUserWithEmailAndPassword,
   sendPasswordResetEmail,
   updateProfile,
+  User,
 } from "firebase/auth";
 import { useEffect, useState } from "react";
+import Link from "next/link";
 
 type Mode = "signin" | "signup" | "reset";
 
 export default function Home() {
-  const [user, setUser] = useState<any>(null);
+  const [user, setUser] = useState<User | null>(null);
   useEffect(() => onAuthStateChanged(auth, setUser), []);
 
   if (!user) {
@@ -38,12 +40,12 @@ export default function Home() {
         Hey, {user.displayName || user.email} 👋
       </h1>
       <div className="flex gap-3">
-        <a
+        <Link
           href="/threads"
           className="rounded-lg bg-blue-600 px-5 py-2.5 text-white font-medium transition hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 cursor-pointer"
         >
           Go to Chats
-        </a>
+        </Link>
         <button
           onClick={() => auth.signOut()}
           className="rounded-lg border border-black/10 px-5 py-2.5 font-medium text-gray-700 transition hover:bg-white focus:outline-none focus:ring-2 focus:ring-blue-300 dark:border-white/10 dark:text-gray-200 dark:hover:bg-neutral-800 cursor-pointer"
@@ -88,11 +90,9 @@ function AuthCard() {
           text: "Password reset email sent. Check your inbox and spam folder.",
         });
       }
-    } catch (err: any) {
-      setMsg({
-        type: "error",
-        text: humanizeFirebaseError(err?.code || err?.message),
-      });
+    } catch (err: unknown) {
+      const code = (err as { code?: string })?.code ?? "auth/unknown";
+      setMsg({ type: "error", text: humanizeFirebaseError(code) });
     } finally {
       setBusy(false);
     }
